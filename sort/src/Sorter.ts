@@ -1,7 +1,7 @@
 import { Sortable } from './Sortable';
 
-export class Sorter<T> {
-  constructor(public collection: Sortable<T>) {};
+export class Sorter {
+  constructor(public collection: Sortable) {};
 
   sort(): void {
     // let's use destructuring
@@ -11,11 +11,11 @@ export class Sorter<T> {
     for (let i=0; i < length; i++) {
       for (let j=0; j < length -i -1; j++) {
         if (this.collection.compare(j, j + 1)) {
-          console.log('sup');
           this.collection.swap(j, j + 1);
-          console.log(this.collection);
         }
       }
     }
+
+    console.log(this.collection);
   }
 }
