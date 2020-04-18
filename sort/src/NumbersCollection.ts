@@ -1,6 +1,6 @@
 import { Sortable } from './Sortable';
 
-export class NumbersCollection implements Sortable<number> {
+export class NumbersCollection implements Sortable {
   data: number[];
 
   constructor(data: number[]) {
