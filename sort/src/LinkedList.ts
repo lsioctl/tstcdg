@@ -3,21 +3,23 @@ import { Sortable } from './Sortable';
 
 export class LinkedList implements Sortable {
   head: LinkedListNode;
+  last: LinkedListNode;
   length: number;
 
   constructor(value: number) {
     const firstNode = new LinkedListNode(value);
     this.head = firstNode;
+    this.last = firstNode;
     this.length = 1;
   }
 
   add(value: number): void {
-    let currNode = this.head;
-    while (currNode.next !== null) {
-      currNode = currNode.next;
-    }
+    // not the more elegant, but I don't want to
+    // parse the whole list to add at the end
+    let currNode = this.last;
     const newNode = new LinkedListNode(value);
     currNode.next = newNode;
+    this.last = newNode;
     this.length ++;
   }
 
@@ -33,7 +35,7 @@ export class LinkedList implements Sortable {
     console.log(currNode.value);
   }
 
-  at(index: number): number {
+  at(index: number): LinkedListNode {
     if (index >= this.length) {
       throw new Error('ouf of bound');
     }
@@ -45,7 +47,7 @@ export class LinkedList implements Sortable {
         currNode = currNode.next;
       }
     }
-    return currNode.value;
+    return currNode;
   }
 
   compare(leftIndex: number, rightIndex: number): boolean {
@@ -53,12 +55,13 @@ export class LinkedList implements Sortable {
     // far better. I think it the same for other collection
     // interface should be refactored
     // or I should use a data field to keep track
-    return this.at(leftIndex) > this.at(rightIndex);
+    return this.at(leftIndex).value > this.at(rightIndex).value;
   }
 
   swap(leftIndex: number, rightIndex: number): void {
-    const leftHand = this.data[leftIndex];
-    this.data[leftIndex] = this.data[rightIndex];
-    this.data[rightIndex] = leftHand;
+    // we just swap the values
+    const leftHand = this.at(leftIndex).value;
+    this.at(leftIndex).value = this.at(rightIndex).value;
+    this.at(rightIndex).value = leftHand;
   }
 }

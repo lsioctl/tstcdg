@@ -22,7 +22,9 @@ linkedList.add(6);
 
 linkedList.print();
 
-console.log(linkedList.at(1));
+const sorterLinkedList = new Sorter(linkedList);
+
+sorterLinkedList.sort();
 
 
 
