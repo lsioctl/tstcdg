@@ -37,16 +37,20 @@ export class LinkedList implements Sortable {
 
   at(index: number): LinkedListNode {
     if (index >= this.length) {
-      throw new Error('ouf of bound');
+      throw new Error('Index out of bound');
     }
     let currNode = this.head;
     for (let i = 0; i < index; i++) {
       // only for avoid TS to complain
-      // I must do something wrong here
+      // the teacher's implementation goes
+      // around as he does not use length but while (currNode)
+      // and he has to use type annotation
+      // let currNode: LinkedListNode | null;
       if (currNode.next !== null) {
         currNode = currNode.next;
       }
     }
+  
     return currNode;
   }
 
