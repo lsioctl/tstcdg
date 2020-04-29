@@ -19,6 +19,10 @@ export class MatchReader {
 
   constructor(public ioReader: IOReader) {};
 
+  static fromCSV(file: string) {
+    return new MatchReader(new ReadCSV(file));
+  }
+
   private convertLine(line: string[]): MatchData {
     return [
       dateStringToDate(line[0]),
@@ -37,6 +41,9 @@ export class MatchReader {
   }
 
   read(): MatchData[] {
+    // here we use composition as defined in the book
+    // desing patterns chapter 'favor composition over inheritance'
+    // this pattern works well with delegation
     return this.ioReader.read().map(this.convertLine);
   }
 
