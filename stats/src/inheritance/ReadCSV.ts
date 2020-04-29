@@ -6,13 +6,15 @@
 // says missing type definition
 import fs from 'fs';
 
-export class ReadCSV {
+export abstract class ReadCSV<T> {
   // this shorthand is conveniant to avoid
   // hassle of declaring property and affect it
   // in the constructor
   constructor(public fileName: string) {}
 
-  read(): string[][] {
+  abstract convertLine(line: string[]): T;
+
+  read(): T[] {
     // this is the fole file
     // note: maybe better to do async
     // with readline, but did not find easy pattern
@@ -25,6 +27,8 @@ export class ReadCSV {
       return line.split(',');
     };
 
-    return rawString.split('\n').map(lineMapper);
+    return rawString.split('\n')
+    .map(lineMapper)
+    .map(this.convertLine);
   }
 }

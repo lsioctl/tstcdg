@@ -7,19 +7,12 @@ export enum MatchResult {
   Draw = 'D',
 };
 
-// This could be network reader, file reader, ...
-interface IOReader {
-  read(): string[][];
-}
-
 // we use tuple here
 type MatchData = [Date, string, string, number, number, MatchResult, string]
 
-export class MatchReader {
-
-  constructor(public ioReader: IOReader) {};
-
-  private convertLine(line: string[]): MatchData {
+export class MatchReader extends ReadCSV<MatchData> {
+  
+  convertLine(line: string[]): MatchData {
     return [
       dateStringToDate(line[0]),
       line[1],
@@ -35,10 +28,4 @@ export class MatchReader {
       line[6]
     ]
   }
-
-  read(): MatchData[] {
-    return this.ioReader.read().map(this.convertLine);
-  }
-
-  
 }

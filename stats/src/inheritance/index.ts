@@ -1,7 +1,6 @@
 import { MatchReader, MatchResult } from './MatchReader';
-import { ReadCSV } from './ReadCSV';
 
-const readCSV = new MatchReader(new ReadCSV('./football.csv'));
+const readCSV = new MatchReader('./football.csv');
 
 const data = readCSV.read();
 
